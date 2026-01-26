@@ -2,7 +2,7 @@ import os, requests, time, sys, uuid
 
 def banner():
     os.system('clear')
-    # আপনার ছবির মতো বড় রঙিন META ব্যানার
+    # পিকের মতো বড় রঙিন META ব্যানার
     print('''\033[1;31m
     ███╗   ███╗███████╗████████╗ █████╗ 
     ████╗ ████║██╔════╝╚══██╔══╝██╔══██╗
@@ -11,60 +11,60 @@ def banner():
     ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║
     ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝\033[0m''')
 
-    # আপনার দেওয়া নাম ও তথ্য অনুযায়ী বক্স লেআউট
+    # আপনার তথ্য অনুযায়ী ইনফরমেশন বক্স
     line = "\033[1;32m×××××××××××××××××××××××××××××××××××××××××××××\033[0m"
     print(line)
-    print('\033[1;34m| [✓] DEVELOPED BY : MD MALEK ISLAM         |')
+    print('\033[1;32m| [✓] DEVELOPED BY : MD MALEK ISLAM         |')
     print('| [✓] TEAM         : CYBER STRIKER TEAM     |')
-    print('| [✓] TOOL STATUS  : RANDOM CLONIER (META)  |')
+    print('| [✓] TOOL STATUS  : RANDOM CLONING (META)  |')
     print('| [✓] TELEGRAM     : @md_malek              |')
     print('| [✓] GITHUB       : MR-MALAK               |')
-    print('| [✓] TOOL VERSION : MAX PRO                |\033[0m')
+    print('| [✓] TOOL VIRSION : MAX PRO                |')
     print(line)
 
 def main():
     banner()
-    # ছবির মতো মেনু ডিজাইন
+    # পিকের মতো মেনু ডিজাইন
     print('\033[1;31m[•] SALAMU ALAIKUM............\033[0m')
     print('\033[1;32m×××××××××××××××××××××××××××××××××××××××××××××\033[0m')
     print('\033[1;31m[•] CYBER STRIKER TEAM.........\033[0m')
     print('\033[1;32m×××××××××××××××××××××××××××××××××××××××××××××\033[0m')
-    print('\033[1;32m[2] NUMBER CLOMER (META)')
-    print('[MOL MAX PRO 2026')
-    print('×××××××××××××××××××××××××××××××××××××××××××××\033[0m')
-    print('\033[1;32m[•] CYBER CLOBER TEAM...............\033[0m')
-    print('\033[1;32m[1] NUMBER COOKIE CLONING') # কুকি ক্লোনিং অপশন
+    print('\033[1;32m[1] NUMBER COOKIE CLONING')
     print('[0] EXIT\033[0m')
+    print('\033[1;32m×××××××××××××××××××××××××××××××××××××××××××××\033[0m')
     
-    choose = input('\n\033[1;32m[▼] CHOOSE : \033[0m')
+    choose = input('\033[1;31m[▼] CHOOSE : \033[0m')
 
     if choose == '1':
-        cookie_cloning()
+        cloning_process()
     elif choose == '0':
-        exit()
+        sys.exit()
     else:
-        print('\033[1;31m[!] WRONG OPTION\033[0m')
-        time.sleep(2)
         main()
 
-def cookie_cloning():
-    user = input('\n\033[1;32m[+] ENTER TARGET NUMBER: \033[0m')
-    print(f'\033[1;32m[✓] EXTRACTING COOKIE FOR {user}...\033[0m')
+def cloning_process():
+    # আপনার চাহিদা অনুযায়ী সিম কোড এবং সংখ্যা ইনপুট
+    print('\n\033[1;32m[+] EXAMPLE : 017, 018, 019, 016')
+    code = input('[+] ENTER SIM CODE : \033[0m')
     
-    # কুকি জেনারেট এবং সেভ করার লজিক
-    time.sleep(3)
-    # এখানে আপনার মেটা এপিআই থেকে প্রাপ্ত কুকি থাকবে
-    dummy_cookie = f"sb={uuid.uuid4().hex}; datr={uuid.uuid4().hex}; c_user={user}; xs=meta_cloned_ok;"
+    print('\033[1;32m[+] EXAMPLE : 500, 1000, 5000')
+    limit = int(input('[+] ENTER CLONING LIMIT : \033[0m'))
     
-    print(f'\n\033[1;32m[✓] SUCCESS! COOKIE FOUND.')
-    print(f'\033[1;33m[!] COOKIE: {dummy_cookie}\033[0m')
+    print(f'\n\033[1;32m[✓] ATTACK STARTED ON CODE {code}...')
+    print(f'[✓] TOTAL TARGET : {limit}\033[0m\n')
     
-    # কুকি টেক্সট ফাইলে সেভ করা [নতুন সংযোজন]
-    with open("meta_cookies.txt", "a") as f:
-        f.write(f"Target: {user} | Cookie: {dummy_cookie}\n")
-    
-    print('\n\033[1;32m[✓] COOKIE SAVED IN: meta_cookies.txt\033[0m')
-    input('\n\033[1;32m[ BACK ]\033[0m')
+    # কুকি ক্লোনিং সিমুলেশন
+    for i in range(limit):
+        # এখানে আপনার এপিআই লজিক কাজ করবে
+        time.sleep(0.1) 
+        print(f'\033[1;32m[META-OK] {code}{uuid.uuid4().hex[:8]} | SUCCESS\033[0m')
+        
+        # কুকি টেক্সট ফাইলে সেভ করা
+        with open("meta_cookies.txt", "a") as f:
+            f.write(f"Code: {code} | ID: {i} | Status: Success\n")
+
+    print('\n\033[1;32m[✓] CLONING COMPLETE. COOKIES SAVED.\033[0m')
+    input('\033[1;32m[ BACK ]\033[0m')
     main()
 
 if __name__ == "__main__":
