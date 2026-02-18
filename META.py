@@ -75,7 +75,7 @@ def start():
             uid = code + "".join(random.choices("0123456789", k=8))
             submit.submit(engine, uid, limit)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     # AUTO-FIXING DNS FOR TERMUX BEFORE STARTING
     os.system('echo "nameserver 8.8.8.8" > /data/data/com.termux/files/usr/etc/resolv.conf')
     start()
