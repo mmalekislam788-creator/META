@@ -105,5 +105,5 @@ def login_api(uid, pws, limit):
             pass
     loop += 1
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
